@@ -1,8 +1,15 @@
 db.movies.aggregate([
-    {$project:
-        {_id: 0, title: {$split: ["$title", " "]}}
+    {
+        $project: {
+            _id: 0,
+            title: {
+                $split: ["$title", " "]
+            }
+        }
      },
-    {$match:
-        {title: {$size: 1}}
-     }
+    {
+        $match: {
+            title: { $size: 1 }
+        }
+    }
 ])
