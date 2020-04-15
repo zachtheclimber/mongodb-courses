@@ -9,7 +9,7 @@ db.movies.aggregate([
     {
         $project: {
             "metacritic": 1,
-            imdb: "$imdb.rating",
+            "imdb.rating": 1,
             title: 1,
             _id: 0
         }
@@ -17,7 +17,7 @@ db.movies.aggregate([
     {
         $facet: {
             "imdb": [
-                { $sort: { "imdb": -1 } },
+                { $sort: { "imdb.rating": -1 } },
                 { $limit: 10 },
                 { $project: { title: 1 } }
             ],
