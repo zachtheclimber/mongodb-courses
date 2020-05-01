@@ -396,9 +396,7 @@ def add_user(name, email, hashedpw):
     """
 
     try:
-        # TODO: Durable Writes
-        # Use a more durable Write Concern for this operation.
-        db.users.insert_one({
+        db.users.with_options(write_concern=WriteConcern(w="majority")).insert_one({
             "name": name,
             "email": email,
             "password": hashedpw
