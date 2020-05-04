@@ -361,10 +361,7 @@ def delete_comment(comment_id, user_email):
     Match the comment_id and user_email with the correct fields, to make sure
     this user has permission to delete this comment, and then delete it.
     """
-
-    # TODO: Delete Comments
-    # Use the user_email and comment_id to delete the proper comment.
-    response = db.comments.delete_one({"_id": ObjectId(comment_id)})
+    response = db.comments.delete_one({"_id": ObjectId(comment_id), "email": user_email})
     return response
 
 
