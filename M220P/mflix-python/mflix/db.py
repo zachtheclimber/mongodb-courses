@@ -514,12 +514,14 @@ def most_active_commenters():
 
     No field projection necessary.
     """
-    # TODO: User Report
-    # Return the 20 users who have commented the most on MFlix.
-    pipeline = []
+    pipeline = [
+        {"$match": {"email": {"$ne": ""}}},
+        {"$group": {"_id": "$email", "count": {"$sum": 1}}},
+        {"$sort": {"comments": -1}},
+        {"$limit": 20}
+    ]
 
-    rc = db.comments.read_concern  # you may want to change this read concern!
-    comments = db.comments.with_options(read_concern=rc)
+    comments = db.comments.with_options(read_concern=ReadConcern(level="majority"))
     result = comments.aggregate(pipeline)
     return list(result)
 
