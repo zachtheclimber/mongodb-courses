@@ -45,9 +45,8 @@ def get_db():
 
         db = g._database = MongoClient(
             MFLIX_DB_URI,
-            maxPoolSize=50
-            # TODO: Timeouts
-            # Set the write timeout limit to 2500 milliseconds.
+            maxPoolSize=50,
+            wTimeoutMS=2500
         )[MFLIX_DB_NAME]
     return db
 
